@@ -5,8 +5,8 @@ const cors = require('cors');
 const app = express();
 
 app.use(express.json());
-app.use("/books", router);
 app.use(cors());
+app.use("/books", router);
 // app.use('/',(req,res,next)=> {
 //     res.send("This is our starting app")
 // })

@@ -16,7 +16,7 @@ const Header = () => {
                     <Tabs textcolor="inherit"
                         indicatorColor="secondary"
                         value = {value}
-                        onchange={(e, val)=>setValue(val)}>
+                        onChange={(e, val)=>setValue(val)}>
 
                         <Tab LinkComponent={NavLink} to="/books" label = "Books"/>
                         <Tab LinkComponent={NavLink} to="/add"  label='Add Product'/>

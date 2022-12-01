@@ -1,10 +1,11 @@
 import { Button } from '@mui/material'
 import React from 'react'
+import "./Book.css"
 
 const Book = (props) => {
   const { _id, title, author, publisher, isbn, avail, who, due } = props.book;
   return (
-    <div>
+    <div className='card'>
       <article>By { author } </article>
       <h3>{title}</h3>
       <p>{publisher}</p>
