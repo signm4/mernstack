@@ -57,7 +57,7 @@ const BookDetail = () => {
             marginTop = {10}
             >
                 <FormLabel>Check Out</FormLabel>
-                <p>Enter Name, if checking in leave Blank</p>
+                <p>Enter Name, <strong>if checking in leave <u>Blank</u></strong></p>
                 <TextField
                     value={inputs.who}
                     onChange={handleChange}
@@ -66,7 +66,18 @@ const BookDetail = () => {
                     varaint="outlined"
                     name="who"
                     />
-                <p>Checking In (Available)</p>
+                <FormLabel>Due Date</FormLabel>
+                <p>Enter Date 2 weeks from today, <strong>if checking in leave <u>Blank</u></strong></p>
+                <TextField
+                    value={inputs.due}
+                    onChange={handleChange}
+                    margin = "normal"
+                    fullWidth
+                    varaint="outlined"
+                    name="due"
+                    />                    
+                <p>---------------------------------------------------------------</p>
+                <FormLabel>Check In, Please clear name and date from <u>Above</u></FormLabel>
                 <FormControlLabel
                     control={
                         
@@ -76,18 +87,9 @@ const BookDetail = () => {
 
                         />
                     }
-                    label = "Available"
+                    label = "Check In"
                 />
-                <FormLabel>Due Date</FormLabel>
-                <p>Enter Date 2 weeks from today, if checking in leave Blank</p>
-                <TextField
-                    value={inputs.due}
-                    onChange={handleChange}
-                    margin = "normal"
-                    fullWidth
-                    varaint="outlined"
-                    name="due"
-                    />
+
 
                     <Button variant='contained' type="submit">
                         Update
