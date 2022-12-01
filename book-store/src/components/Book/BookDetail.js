@@ -1,31 +1,50 @@
 import React, { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import axios from "axios";
-import { Box, FormLabel, TextField, FormControlLabel, Checkbox,} from '@mui/material'
+import { Box, FormLabel, TextField, FormControlLabel, Checkbox, Button} from '@mui/material'
 
 const BookDetail = () => {
     const [inputs, setInputs] = useState({});
     const id = useParams().id;
     const [checked, setChecked] = useState(false);
-    console.log(id);
+    const history = useNavigate();
+    // console.log(id);
     useEffect(() => {
         const fetchHandler = async() =>{
             await axios
                 .get(`http://localhost:5000/books/${id}`)
-                .then(res=>console.log(res.data))
+                .then((res)=>res.data)
+                .then(data=>setInputs(data.book));
                 
         };
-        fetchHandler().then((data)=>setInputs(data.book));
+        fetchHandler();
      }, [id])
+
+     const sendRequest = async() => {
+        await axios.put(`http://localhost:5000/books/${id}`,{
+            who: String(inputs.who),
+            avail: Boolean(checked),
+            due: String(inputs.due)
+        }).then(res=>res.data)
+     }
      const handleSubmit = (e) => {
         e.preventDefault();
-     }
+        sendRequest().then(()=>history("/books"));
+     };
      const handleChange = (e) => {
-        console.log(e);
-     }
+        // console.log(e);
+        setInputs((prevState) => ({
+            ...prevState,
+            [e.target.name]: e.target.value,
+        }));
+     };
+    //  console.log(inputs);
     return (
     <div>
-        <form onSubmit={handleSubmit}>
+        
+        {inputs &&(
+
+         <form onSubmit={handleSubmit}>
         <Box
             display ="flex"
             flexDirection = "column"
@@ -52,13 +71,29 @@ const BookDetail = () => {
                     control={
                         
                         <Checkbox
-                        checked={checked}
+                        checked={inputs.avail}
                         onChange={() => setChecked(!checked)}
+
                         />
                     }
+                    label = "Available"
+                />
+                <FormLabel>Due Date</FormLabel>
+                <p>Enter Date 2 weeks from today, if checking in leave Blank</p>
+                <TextField
+                    value={inputs.due}
+                    onChange={handleChange}
+                    margin = "normal"
+                    fullWidth
+                    varaint="outlined"
+                    name="due"
                     />
+
+                    <Button variant='contained' type="submit">
+                        Update
+                    </Button>
             </Box>
-        </form>
+        </form>)}
     </div>
   )
 }
