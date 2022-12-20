@@ -11,7 +11,8 @@ app.use("/books", router);
 //     res.send("This is our starting app")
 // })
 
-mongoose.connect('mongodb+srv://admin:admin@cluster0.mfhgfxi.mongodb.net/?retryWrites=true&w=majority')
+mongoose.connect('mongodb+srv://user:<password>@cluster0.mfhgfxi.mongodb.net/?retryWrites=true&w=majority') 
+// for the above connection, change user with user and password with password
 .then(()=>console.log("connected to Database"))
 .then(() => {
     app.listen(5000)
